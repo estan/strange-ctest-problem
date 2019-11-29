@@ -1,14 +1,6 @@
-# Insight CTest script for Buildbot builds
-#
-# Builds the program in ../insight-build-ctest/, runs unit tests, collects
-# coverage info and submits the result to CDash. The settings for CDash
-# submission is in CTestConfig.cmake.
-#
-include(CTestCoverageCollectGCOV)
-
 set(CTEST_SOURCE_DIRECTORY ${CTEST_SCRIPT_DIRECTORY})
 set(CTEST_BINARY_DIRECTORY ${CTEST_SCRIPT_DIRECTORY}/../tmp-build)
-set(CTEST_CMAKE_GENERATOR "Ninja")
+set(CTEST_CMAKE_GENERATOR "Unix Makefiles")
 set(CTEST_COVERAGE_COMMAND "llvm-cov-8")
 set(CTEST_COVERAGE_EXTRA_FLAGS "gcov")
 
@@ -34,14 +26,5 @@ ctest_empty_binary_directory("${CTEST_BINARY_DIRECTORY}")
 ctest_start(Experimental TRACK Tests)
 ctest_configure(OPTIONS "${INSIGHT_CTEST_CONFIGURE_OPTIONS}")
 ctest_build()
-ctest_test(RETURN_VALUE TEST_FAILED)
-if(TEST_FAILED)
-    message(SEND_ERROR "Some test(s) failed")
-endif()
+ctest_test()
 ctest_coverage()
-ctest_coverage_collect_gcov(
-    TARBALL gcov.tar
-    SOURCE ${CTEST_SOURCE_DIRECTORY}
-    BUILD ${CTEST_BINARY_DIRECTORY}
-    GCOV_OPTIONS gcov -b
-)
