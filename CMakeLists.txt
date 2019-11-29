@@ -8,5 +8,5 @@ find_package(Qt5Core REQUIRED)
 
 add_executable(mytest mytest.cpp)
 target_link_libraries(mytest PUBLIC Qt5::Core)
-set_target_properties(mytest PROPERTIES AUTOMOC ON)
+set_target_properties(mytest PROPERTIES AUTOMOC ON)  # Removing this also "fixes" the problem!
 add_test(mytest mytest)
