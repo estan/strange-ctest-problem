@@ -1,13 +1,14 @@
 set(CTEST_SOURCE_DIRECTORY ${CTEST_SCRIPT_DIRECTORY})
 set(CTEST_BINARY_DIRECTORY ${CTEST_SCRIPT_DIRECTORY}/../tmp-build)
+
 set(CTEST_CMAKE_GENERATOR "Unix Makefiles")
 set(CTEST_COVERAGE_COMMAND "llvm-cov-8")
 set(CTEST_COVERAGE_EXTRA_FLAGS "gcov")
 
-list(APPEND CTEST_CUSTOM_COVERAGE_EXCLUDE ".*/moc_.*" ".*/ui_.*" ".*/tests/.*" ".*/thirdparty/.*")
+list(APPEND CTEST_CUSTOM_COVERAGE_EXCLUDE ".*/moc_.*")
 list(APPEND CTEST_EXTRA_COVERAGE_GLOB "*.cpp" "*.h")
 
-set(INSIGHT_CTEST_CONFIGURE_OPTIONS
+set(CONFIGURE_OPTIONS
     "-DCMAKE_BUILD_TYPE=Debug"
     "-DCMAKE_CXX_COMPILER=clang++-8"
     "-DCMAKE_CXX_CLANG_TIDY=clang-tidy-8"
@@ -16,15 +17,11 @@ set(INSIGHT_CTEST_CONFIGURE_OPTIONS
     "-DCMAKE_C_FLAGS=-g -O0 --coverage"
     "-DCMAKE_EXE_LINKER_FLAGS=--coverage"
     "-DCMAKE_SHARED_LINKER_FLAGS=--coverage"
-    "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
-    "-DCMAKE_PREFIX_PATH=/opt/VTK8"
-    "-DBUILD_DOC=ON"
-    "-DBUILD_USER_MANUAL=ON"
 )
 
 ctest_empty_binary_directory("${CTEST_BINARY_DIRECTORY}")
 ctest_start(Experimental TRACK Tests)
-ctest_configure(OPTIONS "${INSIGHT_CTEST_CONFIGURE_OPTIONS}")
+ctest_configure(OPTIONS "${CONFIGURE_OPTIONS}")
 ctest_build()
 ctest_test()
 ctest_coverage()
