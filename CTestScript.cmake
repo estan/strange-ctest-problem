@@ -6,7 +6,6 @@ set(CTEST_COVERAGE_COMMAND "llvm-cov-8")
 set(CTEST_COVERAGE_EXTRA_FLAGS "gcov")
 
 list(APPEND CTEST_CUSTOM_COVERAGE_EXCLUDE ".*/moc_.*")
-list(APPEND CTEST_EXTRA_COVERAGE_GLOB "*.cpp" "*.h")
 
 set(CONFIGURE_OPTIONS
     "-DCMAKE_BUILD_TYPE=Debug"
@@ -20,7 +19,7 @@ set(CONFIGURE_OPTIONS
 )
 
 ctest_empty_binary_directory("${CTEST_BINARY_DIRECTORY}")
-ctest_start(Experimental TRACK Tests)
+ctest_start(Experimental)
 ctest_configure(OPTIONS "${CONFIGURE_OPTIONS}")
 ctest_build()
 ctest_test()

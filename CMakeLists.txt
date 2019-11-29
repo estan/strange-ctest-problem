@@ -6,10 +6,7 @@ enable_testing()
 
 find_package(Qt5Core REQUIRED)
 
-add_library(mylib SHARED mylib.cpp)
-target_link_libraries(mylib PUBLIC Qt5::Core)
-set_target_properties(mylib PROPERTIES AUTOMOC ON)
-
 add_executable(mytest mytest.cpp)
-target_link_libraries(mytest PRIVATE mylib)
+target_link_libraries(mytest PUBLIC Qt5::Core)
+set_target_properties(mytest PROPERTIES AUTOMOC ON)
 add_test(mytest mytest)
