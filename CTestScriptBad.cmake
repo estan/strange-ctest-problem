@@ -10,7 +10,6 @@ list(APPEND CTEST_CUSTOM_COVERAGE_EXCLUDE ".*/moc_.*")
 set(CONFIGURE_OPTIONS
     "-DCMAKE_BUILD_TYPE=Debug"
     "-DCMAKE_CXX_COMPILER=clang++-8"
-    "-DCMAKE_CXX_CLANG_TIDY=clang-tidy-8"
     "-DCMAKE_C_COMPILER=clang-8"
     "-DCMAKE_CXX_FLAGS=-g -O0 --coverage"
     "-DCMAKE_C_FLAGS=-g -O0 --coverage"
